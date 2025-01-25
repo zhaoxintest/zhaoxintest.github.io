@@ -30,15 +30,13 @@
                 </div>
                 <!-- 移动端控制按钮 -->
                 <div class="mobile-controls">
-                    <div class="control-row">
+                    <div class="control-row vertical">
                         <button id="upBtn">↑</button>
+                        <button id="downBtn">↓</button>
                     </div>
-                    <div class="control-row">
+                    <div class="control-row horizontal">
                         <button id="leftBtn">←</button>
                         <button id="rightBtn">→</button>
-                    </div>
-                    <div class="control-row">
-                        <button id="downBtn">↓</button>
                     </div>
                 </div>
             </div>
@@ -54,7 +52,6 @@
                 <div id="leaderboard"></div>
                 <div class="modal-buttons">
                     <button id="restartBtn">重新开始</button>
-                    <button id="closeGameOver">关闭</button>
                 </div>
             </div>
         </div>
@@ -62,7 +59,7 @@
         <!-- 游戏规则弹窗 -->
         <div id="rules" class="modal">
             <div class="modal-content">
-                <button class="close-btn" id="closeRules">&times;</button>
+                <button class="close-btn" id="closeRulesBtn">&times;</button>
                 <h2>游戏规则</h2>
                 <ul>
                     <li>使用方向键或WASD控制蛇的移动</li>
@@ -71,7 +68,6 @@
                     <li>撞到墙壁或自己会导致游戏结束</li>
                     <li>难度越高，蛇移动速度越快</li>
                 </ul>
-                <button id="closeRules">关闭</button>
             </div>
         </div>
     </div>

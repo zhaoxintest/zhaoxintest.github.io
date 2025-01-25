@@ -118,7 +118,7 @@ function draw() {
     ctx.fillStyle = '#f0f0f0';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    if (!isGameRunning && snake.length === 0) {
+    if (!isGameRunning && !snake.length) {
         // 显示欢迎语
         ctx.fillStyle = '#388E3C';
         ctx.font = '24px Arial';
@@ -227,6 +227,9 @@ function gameOver() {
         gameInterval = null;
     }
     playSound('gameover');
+    
+    // 保存本局分数
+    localStorage.setItem('lastScore', score.toString());
     
     // 更新最终分数
     document.getElementById('finalScore').textContent = score;
@@ -346,11 +349,11 @@ document.getElementById('rulesBtn').addEventListener('click', () => {
 });
 
 // 关闭按钮事件
-document.getElementById('closeRules').addEventListener('click', () => {
+document.getElementById('closeRulesBtn').addEventListener('click', () => {
     document.getElementById('rules').style.display = 'none';
 });
 
-document.getElementById('closeGameOver').addEventListener('click', () => {
+document.querySelector('#gameOver .close-btn').addEventListener('click', () => {
     document.getElementById('gameOver').style.display = 'none';
 });
 
