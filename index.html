@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="style.css">
     <!-- 添加移动端触摸控制支持 -->
     <script src="https://cdn.bootcdn.net/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script>
+        // 确保Hammer.js加载成功
+        window.addEventListener('load', function() {
+            if (typeof Hammer === 'undefined') {
+                console.warn('Hammer.js加载失败，移动端触控功能将不可用');
+                // 禁用移动端控制按钮
+                document.querySelector('.mobile-controls').style.display = 'none';
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="container">
