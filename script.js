@@ -2,7 +2,7 @@
 let snake = [];
 let food = null;
 let direction = 'right';
-let gameLoop = null;
+let gameInterval = null;
 let score = 0;
 let isGameRunning = false;
 
@@ -118,12 +118,13 @@ function draw() {
     ctx.fillStyle = '#f0f0f0';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // 绘制网格
-    ctx.strokeStyle = '#ddd';
-    for (let i = 0; i < gridWidth; i++) {
-        for (let j = 0; j < gridHeight; j++) {
-            ctx.strokeRect(i * gridSize, j * gridSize, gridSize, gridSize);
-        }
+    if (!isGameRunning && snake.length === 0) {
+        // 显示欢迎语
+        ctx.fillStyle = '#388E3C';
+        ctx.font = '24px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('欢迎体验贪吃蛇小游戏', canvas.width / 2, canvas.height / 2);
+        return;
     }
     
     // 绘制蛇
@@ -135,12 +136,18 @@ function draw() {
         } else {
             ctx.fillStyle = '#4CAF50';
         }
-        ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 1, gridSize - 1);
+        const x = segment.x * gridSize;
+        const y = segment.y * gridSize;
+        ctx.fillRect(x, y, gridSize, gridSize);
     });
     
     // 绘制食物
-    ctx.fillStyle = '#F44336';
-    ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 1, gridSize - 1);
+    if (food) {
+        ctx.fillStyle = '#F44336';
+        const x = food.x * gridSize;
+        const y = food.y * gridSize;
+        ctx.fillRect(x, y, gridSize, gridSize);
+    }
 }
 
 // 游戏主循环
@@ -153,7 +160,10 @@ function gameLoop() {
 // 游戏结束处理
 function gameOver() {
     isGameRunning = false;
-    clearInterval(gameLoop);
+    if (gameInterval) {
+        clearInterval(gameInterval);
+        gameInterval = null;
+    }
     playSound('gameover');
     
     // 更新最终分数
@@ -261,12 +271,11 @@ document.getElementById('startBtn').addEventListener('click', () => {
     const difficulty = document.getElementById('difficulty').value;
     const speed = config[difficulty].speed;
     
-    gameLoop = setInterval(() => {
-        if (isGameRunning) {
-            update();
-            draw();
-        }
-    }, speed);
+    if (gameInterval) {
+        clearInterval(gameInterval);
+    }
+    
+    gameInterval = setInterval(gameLoop, speed);
 });
 
 // 规则按钮事件

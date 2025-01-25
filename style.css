@@ -75,12 +75,12 @@ h1 {
 }
 
 #gameCanvas {
-    border: 3px solid var(--primary-color);
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: var(--shadow);
-    max-width: 100%;
-    height: auto;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    background-color: white;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
 }
 
 .controls {
@@ -329,4 +329,4 @@ select:hover {
     .modal-content h2 {
         font-size: 1.5rem;
     }
-} 
+}
