@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>贪吃蛇 - H5游戏</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 添加移动端触摸控制支持 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="game-wrapper">
+            <h1>贪吃蛇</h1>
+            <div class="game-container">
+                <div class="game-header">
+                    <div class="score">分数: <span id="score">0</span></div>
+                    <div class="difficulty">
+                        <select id="difficulty">
+                            <option value="easy">简单</option>
+                            <option value="medium">中等</option>
+                            <option value="hard">困难</option>
+                        </select>
+                    </div>
+                </div>
+                <canvas id="gameCanvas"></canvas>
+                <div class="controls">
+                    <button id="startBtn">开始游戏</button>
+                    <button id="rulesBtn">游戏规则</button>
+                </div>
+                <!-- 移动端控制按钮 -->
+                <div class="mobile-controls">
+                    <div class="control-row">
+                        <button id="upBtn">↑</button>
+                    </div>
+                    <div class="control-row">
+                        <button id="leftBtn">←</button>
+                        <button id="rightBtn">→</button>
+                    </div>
+                    <div class="control-row">
+                        <button id="downBtn">↓</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏结束弹窗 -->
+        <div id="gameOver" class="modal">
+            <div class="modal-content">
+                <button class="close-btn">&times;</button>
+                <h2>游戏结束</h2>
+                <p>最终得分: <span id="finalScore">0</span></p>
+                <h3>排行榜</h3>
+                <div id="leaderboard"></div>
+                <div class="modal-buttons">
+                    <button id="restartBtn">重新开始</button>
+                    <button id="closeGameOver">关闭</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏规则弹窗 -->
+        <div id="rules" class="modal">
+            <div class="modal-content">
+                <h2>游戏规则</h2>
+                <ul>
+                    <li>使用方向键或WASD控制蛇的移动</li>
+                    <li>在手机上可以使用屏幕按钮或滑动控制</li>
+                    <li>吃到食物可以增加分数</li>
+                    <li>撞到墙壁或自己会导致游戏结束</li>
+                    <li>难度越高，蛇移动速度越快</li>
+                </ul>
+                <button id="closeRules">关闭</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 
