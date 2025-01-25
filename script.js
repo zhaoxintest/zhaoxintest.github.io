@@ -128,25 +128,87 @@ function draw() {
     }
     
     // 绘制蛇
-    ctx.fillStyle = '#4CAF50';
     snake.forEach((segment, index) => {
-        if (index === 0) {
-            // 蛇头使用深色
-            ctx.fillStyle = '#388E3C';
-        } else {
-            ctx.fillStyle = '#4CAF50';
-        }
         const x = segment.x * gridSize;
         const y = segment.y * gridSize;
-        ctx.fillRect(x, y, gridSize, gridSize);
+        const radius = gridSize / 2;
+
+        // 绘制蛇身
+        ctx.beginPath();
+        ctx.arc(x + gridSize/2, y + gridSize/2, radius * 0.8, 0, Math.PI * 2);
+        
+        // 创建渐变色
+        const gradient = ctx.createRadialGradient(
+            x + gridSize/2, y + gridSize/2, radius * 0.3,
+            x + gridSize/2, y + gridSize/2, radius * 0.8
+        );
+        // 蛇头使用绿色渐变，蛇身保持红色
+        if (index === 0) {
+            gradient.addColorStop(0, '#4CAF50');
+            gradient.addColorStop(1, '#388E3C');
+        } else {
+            gradient.addColorStop(0, '#FF5252');
+            gradient.addColorStop(1, '#F44336');
+        }
+        
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        
+        // 添加光泽效果
+        ctx.beginPath();
+        ctx.arc(x + gridSize/2 - radius/4, y + gridSize/2 - radius/4, radius/4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.fill();
+
+        // 为蛇头添加眼睛
+        if (index === 0) {
+            // 左眼
+            ctx.beginPath();
+            ctx.arc(x + gridSize/3, y + gridSize/2, radius/4, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(x + gridSize/3, y + gridSize/2, radius/8, 0, Math.PI * 2);
+            ctx.fillStyle = 'black';
+            ctx.fill();
+
+            // 右眼
+            ctx.beginPath();
+            ctx.arc(x + gridSize*2/3, y + gridSize/2, radius/4, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(x + gridSize*2/3, y + gridSize/2, radius/8, 0, Math.PI * 2);
+            ctx.fillStyle = 'black';
+            ctx.fill();
+        }
     });
     
     // 绘制食物
     if (food) {
-        ctx.fillStyle = '#F44336';
         const x = food.x * gridSize;
         const y = food.y * gridSize;
-        ctx.fillRect(x, y, gridSize, gridSize);
+        const radius = gridSize / 2;
+        
+        ctx.beginPath();
+        ctx.arc(x + gridSize/2, y + gridSize/2, radius * 0.8, 0, Math.PI * 2);
+        
+        // 创建径向渐变
+        const gradient = ctx.createRadialGradient(
+            x + gridSize/2, y + gridSize/2, radius * 0.3,
+            x + gridSize/2, y + gridSize/2, radius * 0.8
+        );
+        gradient.addColorStop(0, '#FF5252');
+        gradient.addColorStop(1, '#F44336');
+        
+        ctx.fillStyle = gradient;
+        ctx.fill();
+        
+        // 添加光泽效果
+        ctx.beginPath();
+        ctx.arc(x + gridSize/2 - radius/4, y + gridSize/2 - radius/4, radius/4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.fill();
     }
 }
 
